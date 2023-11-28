@@ -1,67 +1,412 @@
 +++
 author = "Hugo Authors"
-title = "Rich Content"
-date = "2019-03-10"
+title = "单片机 Content"
+date = "2023-03-10"
 description = "A brief description of Hugo Shortcodes"
 tags = [
     "shortcodes",
     "privacy",
 ]
+
 +++
 
-Hugo ships with several [Built-in Shortcodes](https://gohugo.io/content-management/shortcodes/#use-hugo-s-built-in-shortcodes) for rich content, along with a [Privacy Config](https://gohugo.io/about/hugo-and-gdpr/) and a set of Simple Shortcodes that enable static and no-JS versions of various social media embeds.
-<!--more-->
----
+# 嵌入式单片机 #
 
-## YouTube Privacy Enhanced Shortcode
+1. 为什么不应当把51系列单片机称为MCS-51系列单片机？MCS-51系列单片机的基本型芯片分别为哪几种？它们的差别是什么？ 
 
-{{< youtube ZJthWmvUzzc >}}
+   MCS-51系列单片机中的“MCS”是Intel公司生产的单片机的系列符号，而51系类单片机是指世界各厂家生产的所有与8051的内核结构、指令系统兼容的单片机的总称。MCS-51系列单片机的基本型芯片分别：8031、8051和8071。它们的差别是在片内程序存储器上。8031无片内程序存储器、8051片内有4K字节的程序存储器ROM，而8751片内有集成有4K字节的程序存储器EPROM。
 
-<br>
+2. 嵌入式处理器家族中的单片机、DSP、嵌入式微处理器各有何特点？他们的应用领域有何不同？
 
----
+​        单片机体积小、价格低且易于掌握和普及，很容易嵌入到各种通用目的的系统中，实现各种方式的检测和控制。单片机在嵌入式处理器市场占有率最高，最大特点是价格低，体积小。
 
-## Twitter Simple Shortcode
+   	DSP是一种非常擅长于高速实现各种数字信号处理运算（如数字滤波、FFT、频谱分析等）的嵌入式处理器。由于对其硬件结构和指令进行了特殊设计，使其能够高速完成各种复杂的数字信号处理算法。这类智能化算法一般都是运算量较大，特别是向量运算、指针线性寻址等较多，而这些正是DSP的长处所在。与单片机相比，DSP具有的实现高速运算的硬件结构及指令和多总线，DSP处理的算法的复杂度和大的数据处理流量以及片内集成的多种功能部件更是单片机不可企及的。
 
-{{< twitter_simple user="DesignReviewed" id="1085870671291310081" >}}
+​		嵌入式微处理器的基础是通用计算机中的CPU，它的地址总线数目较多能扩展较大的存储器空间，所以可配置实时多任务操作系统(RTOS)。正由于嵌入式微处理器能运行实时多任务操作系统，所以能够处理复杂的系统管理任务和处理工作。因此，广泛地应用在移动计算平台、媒体手机、工业控制和商业领域（例如，智能工控设备、ATM机等）、电子商务平台、信息家电（机顶盒、数字电视）以及军事上的应用。
 
-<br>
+​	3. AT89S51单片机的片内都集成了哪些外围功能部件？
 
----
+​		AT89S51单片机的片内都集成了如下功能部件：（1）1个微处理器（CPU）；（2）128个数据存储器（RAM）单元 ；（3）4K     	Flash程序存储器；（4）4个8位可编程并行I/O口（P0口、P1口、P2口、P3口）；（5）1个全双工串行口；（6）2个16位定时器/计数器；（7）1个看门狗定时器；（8）一个中断系统，5个中断源，2个优先级；（9）25个特殊功能寄存器（SFR），（10）1个看门狗定时器。
 
-## Vimeo Simple Shortcode
+​	4. 请说明AT89S51单片机的![img](https://mooc1.chaoxing.com/ananas/latex/p/389)引脚的作用。 
 
-{{< vimeo_simple 48912912 >}}
+​	**当![img](https://mooc1.chaoxing.com/ananas/latex/p/389)**脚为高电平时，单片机读片内程序存储器（4K 字节Flash）中的内容，但在PC值超过0FFFH（即超出4K字节地址范围）时，将自动转向读外部程序存储器内的程序；当![img](https://mooc1.chaoxing.com/ananas/latex/p/389)脚为低电平时，单片机只对外部程序存储器的地址为0000H～FFFFH中的内容进行读操作，单片机不理会片内的4K 字节的Flash程序存储器。
 
-## bilibilibi Shortcode
+ 5. AT89S51单片机有5个中断源，请写出这5个中断源的的入口地址及对应的中断源。 
 
-{{< bilibili av498363026 >}}
+    64K 程序存储器空间中有5 个特殊单元分别对应于5个中断源的中断服务程序入口地址，见下表：
 
-## Gist Shortcode
+    **5个中断源的中断入口地址表**
 
-{{< gist spf13 7896402 >}}
+    | **入口地址** | **中断源**                                                   |
+    | ------------ | ------------------------------------------------------------ |
+    | **0003H**    | **外部中断****0 (****![img](https://mooc1.chaoxing.com/mooc-ans/js/editor20150812/themes/default/images/spacer.gif)****)** |
+    | **000BH**    | **定时器****0** **(T0)**                                     |
+    | **0013H**    | **外部中断****1 (****![img](https://mooc1.chaoxing.com/mooc-ans/js/editor20150812/themes/default/images/spacer.gif)****)** |
+    | **001BH**    | **定时器****1** **(T1)**                                     |
+    | **0023H**    | **串行口**                                                   |
 
-## Gitlab Snippets Shortcode
+ 6. 当AT89S51单片机运行出错或程序陷入死循环时，如何摆脱困境？平时没有任务时，可以进入低功耗节电模式，请问有哪几种节电模式？其工作原理是？ 
 
-{{< gitlab 2349278 >}}
+    **采用看门狗定时器。**
 
-## Quote Shortcode
+    **低功耗模式有：**** 空闲模式（idle mode）和掉电保持模式（power down mode）**。
 
-Stack adds a `quote` shortcode.  For example:
+    **空闲模式**：把通往CPU的时钟信号关断，便进入空闲模式。虽然振荡器运行，但是CPU进入空闲状态。所有外围电路（中断系统、串行口和定时器）仍继续工作，SP、PC、PSW、A、P0~P3端口等所有其他寄存器、内部RAM和SFR中内容均保持进入空闲模式前状态。
 
-{{< quote author="A famous person" source="The book they wrote" url="https://en.wikipedia.org/wiki/Book">}}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-{{< /quote >}}
+    **掉电保持模式**：在掉电模式下，进入时钟振荡器的信号被封锁，振荡器停止工作。内部的所有功能部件均停止工作，但片内RAM和SFR的原来内容都被保留，有关端口的输出状态值都保存在对应的特殊功能寄存器中。**
 
-{{< quote source="Anonymous book" url="https://en.wikipedia.org/wiki/Book">}}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-{{< /quote >}}
+7. **在**AT89S51系统中，SFR的全称是？起什么作用？
 
-{{< quote source="Some book">}}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-{{< /quote >}}
+   SFR即特殊功能寄存器：Special Function Register。是各外围部件的控制寄存器及状态寄存器，综合反映单片机内部实际的工作状态及工作方式。特殊功能寄存器映射在片内RAM 80H～FFH 区域中，共26个。
 
-{{< quote author="Somebody">}}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-{{< /quote >}}
+ 8. C51在标准C的基础上，扩展了哪几种数据类型？
 
+    扩展了4种数据类型（见教材表3-1中最后4行）。它们分别是：bit、sfr、sfr16和sbit。
+
+ 9. C51有哪几种数据存储类型？其中数据类型“idata，code，xdata，pdata”各对应AT89S51单片机的哪些存储空间?
+
+​		C51有6种数据存储类型data、bdata、idata、xdata、  pdata和code。
+
+​		数据存储类型idata对应片内RAM的256字节。
+
+​		数据存储类型code对应程序存储区。
+
+​		数据存储类型xdata对应片外64KB的RAM空间。
+
+​		数据存储类型pdata对应片外RAM的256字节.
+
+​	10. bit与sbit定义的位变量有什么区别？。 
+
+​		bit是用来定义普通的位变量，它的值只能是二进制的0或1。而sbit定义的是特殊功能寄存器的可寻址位，它的值是可以进行位寻址的  		特殊功能寄存器的某位的绝对地址，例如PSW寄存器OV位的绝对地址0xd2。
+
+ 11. 说明3种数据存储模式（1）SMALL模式（2）COMPACT模式（3）LARGE模式之间的差别。 
+
+     3种数据存储模式之间的差别如下：
+
+     （1）SMALL模式。在该模式下，所有变量都默认位于8051单片机内部的数据存储器，这与使用data指定存储器类型的方式一样。在此模式下，变量访问的效率高，但是所有数据对象和堆栈必须使用内部RAM。
+
+     （2）COMPACT模式。本模式下的所有变量都默认在外部数据存储器的1页（256字节）内，这与使用pdata指定存储器类型是一样的。该存储器类型适用于变量不超过256字节的情况，此限制是由寻址方式决定的，相当于使用数据指针@Ri进行寻址。与SMALL模式相比，该存储模式的效率比较低，对变量访问的速度也慢一些，但比LARGE模式快。
+
+     （3）LARGE模式。在LARGE模式下，所有变量都默认位于外部数据存储器，相当于使用数据指针@DPTR进行寻址。通过数据指针访问外部数据存储器的效率较低，特别是当变量为2字节或更多字节时，该模式要比SMALL和COMPACT产生更多的代码。
+
+ 12. 简述使用Proteus仿真AT89S51的并运行的过程. 
+
+     创建Proteus工程文件，然后添加AT89S51单片机和其他必要的元件。
+
+     在Proteus原理图中双击AT89S51单片机，在Program File中选择之前生成的hex文件。
+
+     点击开始仿真，观察仿真结果
+
+ 13. 请画出原理图并写出程序实现以下功能：AT89S51单片机接有2个开关，4个发光二极管、一个数码管，要求根据2个开关状态控制4个发光二极管中的某一个亮，并用数码管显示第几个数码管在显亮。
+
+     
+
+     ![d6664ed77bf574284af47d3c157262e8.png](https://p.ananas.chaoxing.com/star3/origin/d6664ed77bf574284af47d3c157262e8.png)
+
+     ![4836c7e2ae909b34082c46d0b59d57fd.png](https://p.ananas.chaoxing.com/star3/origin/4836c7e2ae909b34082c46d0b59d57fd.png)
+
+     
+
+     
+
+​	14. AT89S51单片机的中断系统要用到哪些特殊功能寄存器，使用了哪些位？各是什么意义？
+
+​          ![image-20231125093130701](C:\Users\30404\AppData\Roaming\Typora\typora-user-images\image-20231125093130701.png)
+
+​		15. 中断源有5个：外部中断0、1，定时器中断0、1，串行口中断需要撤销的中断源是电平出发的外部中断。撤销方法：
+
+![0ffbb234e572423d46bfe9c0b56a1af5.png](https://p.ananas.chaoxing.com/star3/origin/0ffbb234e572423d46bfe9c0b56a1af5.png)
+
+		16. 一个中断源的中断请求要得到响应，需要满足哪些条件？ 
+
+​		一个中断源的中断请求被响应，必须满足以下必要条件：
+
+​	（1）总中断允许开关接通，即IE寄存器中的中断总允许位EA=1。
+
+​	（2）该中断源发出中断请求，即该中断源对应的中断请求标志为“1”。
+
+​	（3）该中断源的中断允许位=1，即该中断被允许。
+
+​	（4）无同级或更高级中断正在被服务。
+
+ 17. 如果采用的晶振的频率为24MHz，定时器/计数器工作在方式0、1、2下，其最大定时时间各为多少？工作方式2有什么特点？适用于哪些应用场合？
+
+     晶振的频率为24MHz, 机器周期为0.5µs。
+
+     方式0最大定时时间=0.5µs×213=0.5µs×8192=4096µs
+
+     方式1最大定时时间=0.5µs×216=0.5µs×65536=327686µs
+
+     方式2最大定时时间=0.5µs×28=0.5µs×256=128µs
+
+     方式2为初值自动装入的8位定时器/计数器，克服了在循环定时或循环计数应用时就存在用指令反复装入计数初值影响定时精度的问题。
+
+ 18. 定时器/计数器用作计数器模式时，对外界计数频率有何限制？为什么？
+
+     外部输入的计数脉冲的最高频率为系统振荡器频率的1/24。
+
+     当输入信号产生负跳变时，计数值增1。每个机器周期S5P2期间，都对外部输入引脚T0或T1进行采样。如在第1个机器周期中采得值为1，而在下一个机器周期中采得的值为0，则在紧跟着的再下一个机器周期S3P1期间，计数器加1。由于确认一次负跳变要花2个机器周期，即24个振荡周期，因此外部输入的计数脉冲的最高频率为系统振荡器频率1/24。
+
+ 19. AT89S51单片机P1口接有1个7段LED数码管，初始显示0。外部中断输入引脚![img](https://mooc1.chaoxing.com/mooc-ans/js/editor20150812/themes/default/images/spacer.gif)接有1个按钮开关，该脚平时为高电平。每当按钮开关按下1次时，则产生1个负跳变的外中断请求，并使数码管显示增1，当按下第10次时，数码管从9再变为0。（画出原理图并编程，记得写上思路和注释)
+
+​		
+
+```plain
+/**************************************************************************************
+															  
+***************************************************************************************/
+#include "reg52.h"
+#include "intrins.h"
+
+typedef unsigned int u16;	//对系统默认数据类型进行重定义
+typedef unsigned char u8;
+
+#define Digital_tubes	P0	//使用宏定义P2端口
+#define LED_PORT2	P2	
+u8 display[10]={0xc0,0xf9,0xa4,0xb0,0x99,0x92,0x82,0xf8,0x80,0x90};
+u8 i=0;
+/*******************************************************************************
+* 函 数 名       : delay_10us
+* 函数功能		 : 延时函数，ten_us=1时，大约延时10us
+* 输    入       : ten_us
+* 输    出    	 : 无
+*******************************************************************************/
+void delay_10us(u16 ten_us)
+{
+	while(ten_us--);	
+}
+
+/*******************************************************************************
+* 函 数 名       : main
+* 函数功能		 : 主函数
+* 输    入       : 无
+* 输    出    	 : 无
+*******************************************************************************/
+void main()
+{	
+   	Digital_tubes = display[i];
+	while(1)
+	{
+	EA = 1;
+	EX0 = 1;
+	IT0 = 1;
+	}				
+}
+
+void int0_isr(void) interrupt 0 using 1
+{
+
+   i++;
+   Digital_tubes = display[i%9];	
+
+}
+```
+
+
+
+![img](https://p.ananas.chaoxing.com/star3/origin/a2bc32c4496a1cd4d02f8a43dd2346c0)
+
+
+
+		20.  利用定时器T1的中断来使P1.7控制蜂鸣器发出2kHz的音频信号，假设系统时钟频率为12MHz。（画出原理图并编程）
+
+​		先计算T1初值，系统时钟为12MHz，则方波的周期为1us。2kHz的音频信号周期为0.5ms（500us），高低电平各为250us，则T1的初值：
+
+250*10^(-6)=（65536-x）*12/12M
+
+TH1=(65536 −a)/256； TL1=(65536 −a) %256
+
+a=250
+
+参考程序如下：
+
+\#include<reg51.h>    //包含头文件
+
+sbit sound=P1^7;    //将sound位定义为P1.7引脚
+
+\#define f1(a) (65536-a)/256  //定义装入定时器高8位的时间常数
+
+\#define f2(a) (65536-a)%256  //定义装入定时器低8位的时间常数
+
+unsigned int i = 250;
+
+void main(void)
+
+{
+
+  EA=1;           //开总中断.
+
+  ET1=1;           //允许定时器T1中断     .
+
+  TMOD=0x10;         //TMOD=0001 000B，使用T1的方式1定时
+
+  TH1=f1(i);      //给定时器T1高8位赋初值.
+
+  TL1=f2(i);      //给定时器T1低8位赋初值.
+
+  TR1=1;           //启动定时器T1
+
+  while(1)  
+
+{          //循环等待
+
+}
+
+}
+
+ 
+
+void T1(void) interrupt 3 using 0 //定时器T1中断函数
+
+{
+
+  TR1= 0;           //关闭定时器T1
+
+  sound=~sound;    //P1.7输出求反
+
+  TH1=f1(i);      //定时器T1的高8位重新赋初值.
+
+  TL1=f2(i);      //定时器T1的低8位重新赋初值.
+
+   TR1=1;            //启动定时器T1
+
+}
+
+ 
+
+![img](https://p.ananas.chaoxing.com/star3/origin/9ca9694115a2a26daf69bb124ce696b6.png)
+
+先计算T1初值，系统时钟为12MHz，则方波的周期为1µs。1kHz的音频信号周期为1ms，要定时计数的脉冲数为a。则T1的初值：
+
+TH1=(65 536 −a)/256； TL1=(65 536 −a) %256
+
+参考程序如下：
+
+```#include<reg51.h>    //包含头文件
+`sbit sound=P1^7;    //将sound位定义为P1.7引脚`
+
+`\#define f1(a) (65536-a)/256  //定义装入定时器高8位的时间常数`
+
+`\#define f2(a) (65536-a)%256  //定义装入定时器低8位的时间常数`
+
+`unsigned int i = 500;`
+
+`unsigned int j = 0;`
+
+`void main(void)`
+
+`{`
+
+  `EA=1;           //开总中断.`
+
+  `ET1=1;           //允许定时器T1中断     .`
+
+  `TMOD=0x10;         //TMOD=0001 000B，使用T1的方式1定时`
+
+  `TH1=f1(i);      //给定时器T1高8位赋初值.`
+
+  `TL1=f2(i);      //给定时器T1低8位赋初值.`
+
+  `TR1=1;           //启动定时器T1`
+
+  `while(1)`  
+
+`{          //循环等待`
+
+`}`
+
+`}`
+
+`void T1(void) interrupt 3 using 0 //定时器T1中断函数`
+
+`{`
+
+  `TR1= 0;           //关闭定时器T1`
+
+  `sound=~sound;    //P1.7输出求反`
+
+  `TH1=f1(i);      //定时器T1的高8位重新赋初值.`
+
+  `TL1=f2(i);      //定时器T1的低8位重新赋初值.`
+
+   `TR1=1;            //启动定时器T1`
+
+`} ```
+
+ 
+
+
+```
+
+1. 在ARM等微处理器中常使用抢占式的多任务操作系统，多个任务在理想情况下，当高优先级任务处于就绪态后，就能立即抢占低优先级任务而得到执行，但是在多个任务需要使用共享资源的情况下，可能会出现高优先级任务被低优先级任务阻塞，等待低优先级任务执行完，而低优先级任务又等待中优先级任务的现象，这些现象被称之为什么现象？常用的解决这种现象的办法有哪两种？请简述之。
+
+​       这种现象称之为优先级反转现象，即高优先级任务需要等待低优先级任务释放资源，而低优先级任务又在等待中等优先级任务的现象。
+
+解决的办法有两种：优先级继承协议和优先级天花板协议。
+
+​       优先级继承协议：当一个任务阻塞了-一个或多个高优先级任务时，该任务将不使用其原来的优先级，而使用被该任务阻塞的所有任务的最高优先级作为其执行临界区的优先级。当该任务退出临界区时，又恢复到其最初的优先级。
+
+​      优先级天花板协议：目的在于解决优先级继承协议中存在的死锁和阻塞链问题。指信号量的优先级为所有使用该信号量任务的优先级，如果任务获得信号量，则在执行临界区的过程中，任务的优先级被抬升到所有可能使用该信号量的最高优先级。同样的，当该任务退出临界区时，又恢复到其最初的优先级。
+
+\1.    C51语言不是简单的C语言的删减。
+
+C51语言基本语法与标准C相同，是在标准C的基础上进行适合8051内核单片机硬件的扩展。C51语言与标准C语言一些差别：
+
+(1)     库函数不同。
+
+(2)     数据类型有一定区别。在C51中增加了4种类型。
+
+(3)     C51与标准C语言中变量存储模式数据不一样。
+
+(4)     数据存储类型不同。
+
+(5)     而C51语言中有专门的中断函数。
+
+(6)     头文件不同。  
+
+(7)     程序结构的差异。C51不允许太多的程序嵌套、不支持递归。
+
+为什么定时器/计数器T1用作串行口波特率发生器时，常采用方式2？若已知时钟频率、串行通信的波特率，如何计算装入T1的初值？
+
+AT89S51单片机串行口的输入、输出以TTL电平来串行传输数据，缺点是抗干扰性差，传输距离短，传输速率低。为了增大串行通信的距离和提高传输速率，在实际的串行通信中设计中都采用标准串行接口，如RS-232、RS-422A、RS-485等。
+
+如果双机通信距离在1.5～15m时，可利用RS-232C标准接口实现点对点的双机通信。RS-232C的缺点：传输速率低、通信距离短、接口处信号容易产生串扰等。于是国际上又推出了RS-422A标准。RS-422A与RS-232C的主要区别是收发双方的信号地不再共地，采用了平衡驱动和差分接收的方法。每个方向用于数据传输的是两条平衡导线，这相当于两个单端驱动器。输入同一个信号时，其中一个驱动器的输出永远是另一个驱动器的反相信号。于是两条线上传输的信号电平，当一个表示逻辑“1”时，另一条一定为逻辑“0”。若传输过程中，信号中混入了干扰和噪声（以共模形式出现），由于差分接收器的作用，就能识别有用信号并正确接收传输的信息，并使干扰和噪声相互抵消。
+
+因此，RS-422A能在长距离、高速率下传输数据。它的最大传输率为10Mbit/s，在此速率下，电缆允许长度为12m，如果采用较低传输速率时，最大传输距离可达1 219m。
+
+RS-422A双机通信需四芯传输线，这对长距离通信是很不经济的，故在工业现场，通常采用双绞线传输的RS-485串行通信接口，它很容易实现多机通信。RS-485是RS-422A的变型，与RS-422A的区别是：RS-422A为全双工，采用两对平衡差分信号线；而RS-485为半双工，采用一对平衡差分信号线。RS-485与多站互连是十分方便的，易实现1对N的多机通信。
+
+
+
+D/A转换器的主要性能指标都有哪些？设某DAC为二进制12位，满量程输出电压为5V，试问它的分辨率是多少？
+
+D／A转换器的主要技术指标如下：
+
+分辨率：D／A转换器的分辨率指输入的单位数字量变化引起的模拟量输出的变化，是对输入量变化敏感程度的描述。
+
+建立时间：建立时间是描述D／A转换速度快慢的一个参数，用于表明转换速度。其值为从输入数字量到输出达到终位误差±(1／2)GB(最低有效位)时所需的时间。
+
+转换精度：理想情况下，精度与分辨率基本一致，位数越多精度越高。严格讲精度与分辨率并不完全一致。只要位数相同，分辨率则相同．但相同位数的不同转换器精度会有所不同。
+
+当DAC为二进制12位，满量程输出电压为5V时，分辨率为1.22 mV（5V/212)
+
+A/D转换器两个最重要的技术指标是什么？
+
+A／D转换器的两个最重要指标：(1) 转换时间和转换速率--转换时间A／D完成一次转换所需要的时间。转换时间的倒数为转换速率。
+
+(2) 分辨率--A／D转换器的分辨率习惯上用输出二进制位数或BCD码位数表示。
+
+
+
+在AT89S51系统中，串口有几种工作方式？各是什么功能？波特率如何确定？
+
+![img](https://p.ananas.chaoxing.com/star3/origin/9f2e51375b9e123d85802e9bdd0698b5.png)
+
+
+
+可变波特率的计算：波特率=2^SMOD*f/32*12*(256-x)
+
+试叙述ADC0809的转换过程
+
+首先由加到C、B、A上的编码决定选择ADC0809的某一路模拟输入通道，同时产生高电平加到ADC0809的START引脚，开始对选中通道转换。当转换结束时，ADC0809发出转换结束EOC（高电平）信号。当单片机读取转换结果时，需控制OE端为高电平，把转换完毕的数字量读入到单片机内。
