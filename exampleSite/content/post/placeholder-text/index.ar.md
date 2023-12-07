@@ -1,7 +1,7 @@
 +++
 author = "Hugo Authors"
 title = "مثال نص"
-date = "2019-03-09"
+date = "20-03-09"
 description = "هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة"
 categories = [
     "تجربة",
