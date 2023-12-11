@@ -2,10 +2,10 @@
 author = "Hugo Authors"
 title = "单片机 Content"
 date = "2023-03-10"
-description = "A brief description of Hugo Shortcodes"
+description = "A brief description of nan Shortcodes"
 tags = [
-    "shortcodes",
-    "privacy",
+    "C51",
+    "51单片机",
 ]
 
 +++
